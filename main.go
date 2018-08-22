@@ -93,7 +93,7 @@ func sayIP(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/", sayIP)
-	err := http.ListenAndServe(":9000", nil)
+	err := http.ListenAndServe(":5000", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
