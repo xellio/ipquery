@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -91,10 +92,23 @@ func sayIP(w http.ResponseWriter, req *http.Request) {
 
 }
 
+func determineListenAddress() (string, error) {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
+}
+
 func main() {
-	http.HandleFunc("/", sayIP)
-	err := http.ListenAndServe(":5000", nil)
+	addr, err := determineListenAddress()
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	http.HandleFunc("/", sayIP)
+	log.Printf("Listening on %s...\n", addr)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		panic(err)
 	}
 }
