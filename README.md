@@ -6,5 +6,5 @@ go build .
 PORT=8888 ./ipquery
 ```
 
-deployed on heroku
-https://ipquery.herokuapp.com/
+deployed on
+http://ip.xell.io
